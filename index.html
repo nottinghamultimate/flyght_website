@@ -3,15 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <title>My Frisbee Team</title>
+  <!-- Load the Orbitron fallback font from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/flyght_favicon.png">
+  <!-- Replace the kit URL below with the Adobe Fonts embed code from your Adobe Fonts web project -->
+  <!-- <link rel="stylesheet" href="https://use.typekit.net/your-kit-id.css"> -->
+  <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-  <h1>Welcome to Our Frisbee Team</h1>
-  <p>Come play with us!</p>
+  <header>
+    <div class="header-inner">
+      <a class="logo-link" href="#home">
+        <img src="assets/flyght_logo.png" alt="Flyght logo">
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="#home">Home</a>
+        <a href="#join-us">Join Us</a>
+        <a href="#about-flyght">About Flyght</a>
+        <a href="#what-is-ultimate">What is Ultimate</a>
+        <a href="#news">News</a>
+        <a href="#documents">Documents</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
 
-  <h2>Join us</h2>
-  <a href="https://discord.gg/yourinvite">Join our Discord</a>
+  <main id="page-content">
+    <p>Loading content…</p>
+  </main>
 
-  <h2>Mailing list</h2>
-  <p>Coming soon</p>
+  <script>
+    const sectionMap = {
+      home: 'sections/Home.html',
+      'join-us': 'sections/Join Us.html',
+      'about-flyght': 'sections/About Flyght.html',
+      'what-is-ultimate': 'sections/What is Ultimate.html',
+      news: 'sections/News.html',
+      documents: 'sections/Documents.html',
+      contact: 'sections/Contact.html'
+    };
+
+    async function loadSection(sectionId) {
+      const pageContent = document.getElementById('page-content');
+      const filePath = sectionMap[sectionId] || sectionMap.home;
+      try {
+        const response = await fetch(filePath);
+        if (!response.ok) throw new Error('Failed to load ' + filePath);
+        const html = await response.text();
+        pageContent.innerHTML = html;
+      } catch (error) {
+        console.error(error);
+        pageContent.innerHTML = '<p>Unable to load this section. Please try again later.</p>';
+      }
+    }
+
+    function loadCurrentSection() {
+      const currentHash = window.location.hash.slice(1) || 'home';
+      loadSection(currentHash);
+    }
+
+    window.addEventListener('hashchange', loadCurrentSection);
+    window.addEventListener('DOMContentLoaded', loadCurrentSection);
+  </script>
 </body>
 </html>
