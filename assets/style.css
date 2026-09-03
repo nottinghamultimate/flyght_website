@@ -116,3 +116,22 @@ a:hover {
     margin-top: 1rem;
     border-radius: 8px;
 }
+
+/* --- Dropdown Container Rules --- */
+.nav-dropdown,
+.submenu {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dropdown-menu,
+.submenu-menu {
+  display: none;
+}
+
+.dropdown-menu.is-active,
+.submenu-menu.is-active {
+  display: flex;
+}

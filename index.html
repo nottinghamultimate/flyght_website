@@ -9,14 +9,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="assets/flyght_favicon.png">
-  <!-- Replace the kit URL below with the Adobe Fonts embed code from your Adobe Fonts web project -->
-  <!-- <link rel="stylesheet" href="https://use.typekit.net/your-kit-id.css"> -->
   <link rel="stylesheet" href="assets/style.css">
   <link rel="stylesheet" href="css/responsive.css">
   <style>
     :root { --site-header-height: 64px; }
 
-    /* Sticky header (use colours from assets/style.css) */
+    /* Sticky header */
     header {
       position: sticky;
       top: 0;
@@ -41,7 +39,7 @@
 
     #page-content { padding-top: 20px; transition: padding-top .12s; }
 
-    /* Desktop nav (explicit) */
+    /* Desktop nav */
     .site-nav {
       display: flex;
       gap: 1rem;
@@ -50,7 +48,8 @@
     }
     .site-nav a,
     .nav-dropdown-toggle,
-    .submenu-toggle {
+    .submenu-toggle,
+    .mobile-back-btn {
       display: inline-flex;
       align-items: center;
       gap: .35rem;
@@ -71,125 +70,115 @@
       color: #0b62a4;
     }
 
-    .nav-dropdown {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-    }
+    .mobile-back-btn { display: none; }
 
-    .dropdown-menu,
-    .submenu-menu {
-      display: none;
-      position: absolute;
-      background: var(--dark-green);
-      box-shadow: 0 12px 24px rgba(0,0,0,.12);
-      border: 1px solid rgba(255,255,255,.12);
-      z-index: 3000;
-      text-align: center;
-    }
+    /* Desktop flyouts */
+    @media (min-width: 769px) {
+      .nav-dropdown, .submenu { position: relative; }
 
-    .nav-dropdown.is-open > .dropdown-menu,
-    .submenu.is-open > .submenu-menu {
-      display: block;
-    }
+      .dropdown-menu, .submenu-menu {
+        display: none;
+        position: absolute;
+        background: var(--dark-green);
+        box-shadow: 0 12px 24px rgba(0,0,0,.12);
+        border: 1px solid rgba(255,255,255,.12);
+        z-index: 3000;
+        text-align: center;
+        min-width: 220px;
+      }
 
-    .dropdown-menu {
-      top: calc(100% + .5rem);
-      left: 50%;
-      transform: translateX(-50%);
-      min-width: 220px;
-    }
+      .nav-dropdown.is-open > .dropdown-menu,
+      .submenu.is-open > .submenu-menu {
+        display: block;
+      }
 
-    .submenu {
-      position: relative;
-    }
+      .dropdown-menu {
+        top: calc(100% + .5rem);
+        left: 50%;
+        transform: translateX(-50%);
+      }
 
-    .submenu-menu {
-      top: 0;
-      left: calc(100% + .5rem);
-      min-width: 220px;
-      text-align: center;
-    }
+      .submenu-menu {
+        top: 0;
+        left: 100%;
+      }
 
-    .dropdown-menu a,
-    .submenu-menu a {
-      display: block;
-      padding: .7rem .9rem;
-      color: var(--white);
-      text-decoration: none;
-      white-space: nowrap;
-      text-align: center;
-    }
+      .dropdown-menu a, .submenu-menu a {
+        display: block;
+        padding: .7rem .9rem;
+        color: var(--white);
+        text-decoration: none;
+        white-space: nowrap;
+      }
 
-    .dropdown-menu a:hover,
-    .dropdown-menu a:focus,
-    .submenu-menu a:hover,
-    .submenu-menu a:focus {
-      background: rgba(255,255,255,.06);
+      .dropdown-menu a:hover, .submenu-menu a:hover {
+        background: rgba(255,255,255,.06);
+      }
     }
 
     /* Nav toggle (hidden on desktop) */
     .nav-toggle { display: none; background: transparent; border: none; font-size: 1.25rem; line-height:1; padding: .5rem; cursor: pointer; color: var(--white); }
 
+    /* Mobile drill-down styles */
     @media (max-width: 768px) {
-      /* hide normal nav until toggled */
-      .site-nav { display: none;
-        flex-direction: column;
-        gap: 0;
-        align-items: center;
-        text-align: center;
-      }
       .nav-toggle { display: inline-flex; align-items:center; justify-content:center; }
 
-      header.mobile-menu-open .site-nav {
-        display: flex;
+      .site-nav { 
+        display: none;
         position: absolute;
         top: var(--site-header-height);
         left: 0;
         right: 0;
+        height: calc(100vh - var(--site-header-height));
         background: var(--dark-green);
-        padding: .75rem;
-        box-shadow: 0 8px 24px rgba(0,0,0,.08);
-        z-index: 9999;
-        align-items: center;
-        text-align: center;
+        overflow-x: hidden;
+        overflow-y: auto;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1rem 0;
       }
 
-      /* make nav links easier to tap when open */
-      header.mobile-menu-open .site-nav a,
-      header.mobile-menu-open .nav-dropdown-toggle,
-      header.mobile-menu-open .submenu-toggle {
-        display: block;
-        padding: .5rem 0;
+      header.mobile-menu-open .site-nav {
+        display: flex;
+      }
+
+      .site-nav a,
+      .nav-dropdown-toggle,
+      .submenu-toggle,
+      .mobile-back-btn {
         width: 100%;
-        text-align: center;
+        justify-content: center;
+        padding: .85rem 1rem;
+        border-bottom: 1px solid rgba(255,255,255,.05);
       }
 
-      .nav-dropdown,
-      .submenu {
+      .mobile-back-btn {
+        display: flex;
+        font-weight: bold;
+        background: rgba(255,255,255,.08);
+        margin-bottom: .5rem;
+      }
+
+      .nav-dropdown, .submenu { width: 100%; }
+
+      /* Drill-down subpanels replace the main menu layer */
+      .dropdown-menu,
+      .submenu-menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
+        height: 100%;
+        background: var(--dark-green);
+        z-index: 10;
+        padding-top: .5rem;
       }
 
-      .nav-dropdown .dropdown-menu,
-      .nav-dropdown .submenu-menu,
-      .submenu .submenu-menu {
-        position: static;
-        left: auto;
-        top: auto;
-        right: auto;
-        transform: none;
-        min-width: 100%;
-        width: 100%;
-        margin-top: .25rem;
-        box-shadow: none;
-        border: none;
-        display: block;
-      }
-
-      .dropdown-menu a,
-      .submenu-menu a {
-        padding-left: 0;
-        text-align: center;
+      .dropdown-menu.is-active,
+      .submenu-menu.is-active {
+        display: flex;
       }
     }
   </style>
@@ -216,6 +205,7 @@
           </button>
 
           <div class="dropdown-menu" id="documents-menu">
+            <button class="mobile-back-btn" type="button">‹ Back to Main Menu</button>
             <a href="https://drive.google.com/file/d/10SQj4OcUhDW2CInxf8KeO__BumAN0IiN/view?usp=sharing" target="_blank" rel="noreferrer">Constitution</a>
             <a href="https://docs.google.com/document/d/1OYPpQA5snKfEvhyE-Mx7YVahZtwt8gbQ/edit?usp=sharing&ouid=114909020403936945939&rtpof=true&sd=true" target="_blank" rel="noreferrer">Code of Conduct</a>
             <a href="https://docs.google.com/document/d/1wbTFdiutQtIMlZPYGVbkhPbYCXFdkA-jliou547xljs/edit?usp=sharing" target="_blank" rel="noreferrer">Payment Policy</a>
@@ -227,6 +217,7 @@
               </button>
 
               <div class="submenu-menu" id="consent-forms-menu">
+                <button class="mobile-back-btn" type="button">‹ Back to Documents</button>
                 <a href="https://docs.google.com/document/d/1GQ5w6_PeaOvYl5ftMpekJBpE9bzsjWaS/edit?usp=sharing&ouid=106295498390520346344&rtpof=true&sd=true" target="_blank" rel="noreferrer">Junior Consent - Annual</a>
                 <a href="https://docs.google.com/document/d/16aAkZiBRsvql2uosm2jpwxEXit15tn0E/edit?usp=sharing&ouid=106295498390520346344&rtpof=true&sd=true" target="_blank" rel="noreferrer">Junior Consent - Event</a>
                 <a href="https://docs.google.com/document/d/16qIf0ve4XS3eCqg_n-22V6517NC4l_Su/edit?usp=sharing&ouid=106295498390520346344&rtpof=true&sd=true" target="_blank" rel="noreferrer">Junior Consent - Training</a>
@@ -245,7 +236,7 @@
     <p>Loading content…</p>
   </main>
 
-  <!-- updated site-wide header toggle script -->
+  <!-- Header height and main toggle script -->
   <script>
     (function () {
       const header = document.querySelector('header');
@@ -256,7 +247,7 @@
         const h = header.getBoundingClientRect().height || 64;
         document.documentElement.style.setProperty('--site-header-height', Math.ceil(h) + 'px');
       }
-      // run after fonts/images load and on resize
+      
       window.addEventListener('load', setHeaderHeightVar);
       setHeaderHeightVar();
       window.addEventListener('resize', setHeaderHeightVar);
@@ -267,7 +258,7 @@
         const open = header.classList.toggle('mobile-menu-open');
         toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
         toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-        // update header height after menu opens (menu may change header size)
+        if (!open) closeAllSubpanels();
         requestAnimationFrame(setHeaderHeightVar);
       });
 
@@ -277,76 +268,65 @@
         header.classList.remove('mobile-menu-open');
         toggle.setAttribute('aria-expanded', 'false');
         toggle.setAttribute('aria-label', 'Open menu');
+        closeAllSubpanels();
         requestAnimationFrame(setHeaderHeightVar);
       });
     })();
   </script>
 
+  <!-- Drill-down & dropdown handler script -->
   <script>
-    function setMenuState(button, menu, open) {
-      const container = button.closest('.nav-dropdown, .submenu');
-      if (container) {
-        container.classList.toggle('is-open', open);
-      }
-      button.setAttribute('aria-expanded', String(open));
-      if (menu) {
-        menu.style.display = open ? 'block' : 'none';
-        menu.hidden = !open;
-      }
-    }
-
-    function closeAllDropdowns() {
-      document.querySelectorAll('.nav-dropdown, .submenu').forEach((container) => {
+    function closeAllSubpanels() {
+      document.querySelectorAll('.dropdown-menu, .submenu-menu').forEach(menu => {
+        menu.classList.remove('is-active');
+      });
+      document.querySelectorAll('.nav-dropdown, .submenu').forEach(container => {
         container.classList.remove('is-open');
       });
-
-      document.querySelectorAll('.nav-dropdown-toggle, .submenu-toggle').forEach((button) => {
-        button.setAttribute('aria-expanded', 'false');
-      });
-
-      document.querySelectorAll('.dropdown-menu, .submenu-menu').forEach((menu) => {
-        menu.style.display = 'none';
-        menu.hidden = true;
+      document.querySelectorAll('.nav-dropdown-toggle, .submenu-toggle').forEach(btn => {
+        btn.setAttribute('aria-expanded', 'false');
       });
     }
 
-    document.addEventListener('click', function (event) {
-      const clickedDropdown = event.target.closest('.nav-dropdown, .submenu');
-      if (!clickedDropdown) {
-        closeAllDropdowns();
+    // Toggle dropdowns & mobile drill-downs
+    document.querySelectorAll('.nav-dropdown-toggle, .submenu-toggle').forEach(button => {
+      button.addEventListener('click', function (e) {
+        e.stopPropagation();
+        const menu = this.nextElementSibling;
+        if (!menu) return;
+
+        if (window.innerWidth <= 768) {
+          menu.classList.add('is-active');
+        } else {
+          const container = this.closest('.nav-dropdown, .submenu');
+          const isOpen = container.classList.contains('is-open');
+          if (container.classList.contains('nav-dropdown')) closeAllSubpanels();
+          container.classList.toggle('is-open', !isOpen);
+          this.setAttribute('aria-expanded', String(!isOpen));
+        }
+      });
+    });
+
+    // Mobile back button triggers
+    document.querySelectorAll('.mobile-back-btn').forEach(button => {
+      button.addEventListener('click', function (e) {
+        e.stopPropagation();
+        const currentPanel = this.closest('.dropdown-menu, .submenu-menu');
+        if (currentPanel) {
+          currentPanel.classList.remove('is-active');
+        }
+      });
+    });
+
+    // Close desktop flyouts when clicking outside
+    document.addEventListener('click', function (e) {
+      if (window.innerWidth > 768 && !e.target.closest('.nav-dropdown, .submenu')) {
+        closeAllSubpanels();
       }
     });
-
-    document.querySelectorAll('.nav-dropdown-toggle').forEach((button) => {
-      const menu = button.nextElementSibling;
-      button.addEventListener('click', function (event) {
-        event.stopPropagation();
-        const isOpen = button.getAttribute('aria-expanded') === 'true';
-        closeAllDropdowns();
-        setMenuState(button, menu, !isOpen);
-      });
-    });
-
-    document.querySelectorAll('.submenu-toggle').forEach((button) => {
-      const menu = button.nextElementSibling;
-      button.addEventListener('click', function (event) {
-        event.stopPropagation();
-        const isOpen = button.getAttribute('aria-expanded') === 'true';
-        document.querySelectorAll('.submenu-toggle').forEach((other) => {
-          if (other !== button) {
-            const otherMenu = other.nextElementSibling;
-            if (otherMenu) {
-              setMenuState(other, otherMenu, false);
-            }
-          }
-        });
-        setMenuState(button, menu, !isOpen);
-      });
-    });
-
-    closeAllDropdowns();
   </script>
 
+  <!-- Original section loader script -->
   <script>
     const sectionMap = {
       home: 'sections/Home.html',
