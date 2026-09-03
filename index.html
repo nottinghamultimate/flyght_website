@@ -13,6 +13,72 @@
   <!-- <link rel="stylesheet" href="https://use.typekit.net/your-kit-id.css"> -->
   <link rel="stylesheet" href="assets/style.css">
   <link rel="stylesheet" href="css/responsive.css">
+  <style>
+    :root { --site-header-height: 64px; }
+
+    /* Sticky header (use colours from assets/style.css) */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 9999;
+      width: 100%;
+      background: var(--dark-green);
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px);
+      color: var(--white);
+    }
+
+    /* Header inner layout */
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0 .75rem;
+      min-height: 64px;
+    }
+
+    #page-content { padding-top: 20px; transition: padding-top .12s; }
+
+    /* Desktop nav (explicit) */
+    .site-nav {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    .site-nav a {
+      display: inline-block;
+      padding: .5rem .4rem;
+      text-decoration: none;
+      color: var(--white);
+    }
+    .site-nav a:hover,
+    .site-nav a:focus { color: #0b62a4; /* subtle hover accent */ }
+
+    /* Nav toggle (hidden on desktop) */
+    .nav-toggle { display: none; background: transparent; border: none; font-size: 1.25rem; line-height:1; padding: .5rem; cursor: pointer; color: var(--white); }
+
+    @media (max-width: 768px) {
+      /* hide normal nav until toggled */
+      .site-nav { display: none; flex-direction: column; gap: 0; }
+      .nav-toggle { display: inline-flex; align-items:center; justify-content:center; }
+
+      header.mobile-menu-open .site-nav {
+        display: flex;
+        position: absolute;
+        top: var(--site-header-height);
+        left: 0;
+        right: 0;
+        background: var(--dark-green);
+        padding: .75rem;
+        box-shadow: 0 8px 24px rgba(0,0,0,.08);
+        z-index: 9999;
+      }
+
+      /* make nav links easier to tap when open */
+      header.mobile-menu-open .site-nav a { display: block; padding: .5rem 0; }
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -20,6 +86,10 @@
       <a class="logo-link" href="#home">
         <img src="assets/flyght_logo.png" alt="Flyght logo">
       </a>
+
+      <!-- mobile toggle placed next to nav for consistent layout -->
+      <button class="nav-toggle" aria-expanded="false" aria-label="Open menu">&#9776;</button>
+
       <nav class="site-nav" aria-label="Primary">
         <a href="#home">Home</a>
         <a href="#what-is-ultimate">What is Ultimate</a>
@@ -34,6 +104,44 @@
     <p>Loading content…</p>
   </main>
 
+  <!-- updated site-wide header toggle script -->
+  <script>
+    (function () {
+      const header = document.querySelector('header');
+      if (!header) return;
+      const toggle = header.querySelector('.nav-toggle');
+
+      function setHeaderHeightVar() {
+        const h = header.getBoundingClientRect().height || 64;
+        document.documentElement.style.setProperty('--site-header-height', Math.ceil(h) + 'px');
+      }
+      // run after fonts/images load and on resize
+      window.addEventListener('load', setHeaderHeightVar);
+      setHeaderHeightVar();
+      window.addEventListener('resize', setHeaderHeightVar);
+
+      if (!toggle) return;
+      toggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        const open = header.classList.toggle('mobile-menu-open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        // update header height after menu opens (menu may change header size)
+        requestAnimationFrame(setHeaderHeightVar);
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!header.classList.contains('mobile-menu-open')) return;
+        if (header.contains(e.target)) return;
+        header.classList.remove('mobile-menu-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Open menu');
+        requestAnimationFrame(setHeaderHeightVar);
+      });
+    })();
+  </script>
+
+  <!-- section loader script -->
   <script>
     const sectionMap = {
       home: 'sections/Home.html',
