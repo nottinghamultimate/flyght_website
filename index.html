@@ -262,6 +262,17 @@
         requestAnimationFrame(setHeaderHeightVar);
       });
 
+      header.querySelectorAll('.site-nav a').forEach(link => {
+        link.addEventListener('click', function () {
+          if (window.innerWidth > 768) return;
+          header.classList.remove('mobile-menu-open');
+          toggle.setAttribute('aria-expanded', 'false');
+          toggle.setAttribute('aria-label', 'Open menu');
+          closeAllSubpanels();
+          requestAnimationFrame(setHeaderHeightVar);
+        });
+      });
+
       document.addEventListener('click', function (e) {
         if (!header.classList.contains('mobile-menu-open')) return;
         if (header.contains(e.target)) return;
