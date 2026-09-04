@@ -55,6 +55,11 @@ button,
     gap: 12px;
   }
 
+  .contact-with-image {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
   .site-nav a {
     padding: .5rem .5rem;
     display: block;
