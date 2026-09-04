@@ -50,6 +50,11 @@ button,
 
 /* Keep site-nav links touch-friendly on small screens, but let assets/style.css control desktop nav */
 @media (max-width: 768px) {
+  .intro-with-image {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
   .site-nav a {
     padding: .5rem .5rem;
     display: block;
