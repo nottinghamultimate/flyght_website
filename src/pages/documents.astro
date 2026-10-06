@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { documents, consentForms } from '../data';
+---
+
+<BaseLayout
+  title="Club Documents | Flyght Ultimate Nottingham"
+  description="Flyght Ultimate club documents: constitution, code of conduct, payment policy and junior consent forms."
+>
+  <section class="page container">
+    <h1>Club Documents</h1>
+    <ul>
+      {documents.map((doc) => (
+        <li><a href={doc.href} target="_blank" rel="noopener">{doc.label}</a></li>
+      ))}
+    </ul>
+    <h2>Consent Forms</h2>
+    <ul>
+      {consentForms.map((form) => (
+        <li><a href={form.href} target="_blank" rel="noopener">{form.label}</a></li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>

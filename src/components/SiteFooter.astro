@@ -1,0 +1,24 @@
+---
+import { club } from '../data';
+---
+
+<footer class="site-footer">
+  <p><strong>{club.fullName}</strong> &middot; Founded 2001</p>
+  <p>
+    <a href={`mailto:${club.email}`}>{club.email}</a> &middot;
+    <a href={club.discord} target="_blank" rel="noopener">Discord</a> &middot;
+    <a href={club.instagram} target="_blank" rel="noopener">Instagram</a>
+  </p>
+</footer>
+
+<style is:global>
+  .site-footer {
+    background: var(--dark-green);
+    color: var(--white);
+    text-align: center;
+    padding: 1.5rem 1rem;
+    margin-top: 2rem;
+  }
+  .site-footer p { margin: 0.25rem 0; }
+  .site-footer a { color: var(--white); text-decoration: underline; }
+</style>

@@ -1,0 +1,25 @@
+---
+interface Props {
+  title: string;
+  venue: string;
+  time: string;
+  mapSrc: string;
+  mapTitle: string;
+}
+
+const { title, venue, time, mapSrc, mapTitle } = Astro.props;
+---
+
+<h3>{title}</h3>
+<ul class="training-details">
+  <li>📍 {venue}</li>
+  <li>🕕 {time}</li>
+</ul>
+<slot />
+
+<details class="map-section">
+  <summary>📍 Show map</summary>
+  <div class="responsive-embed">
+    <iframe src={mapSrc} title={mapTitle} style="border:0;" loading="lazy" allowfullscreen></iframe>
+  </div>
+</details>
