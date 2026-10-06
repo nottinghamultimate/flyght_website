@@ -5,6 +5,7 @@ export const club = {
   email: 'nottinghamultimate@gmail.com',
   discord: 'https://discord.gg/ZKh9tGqysy',
   instagram: 'https://www.instagram.com/flyghtultimate/',
+  instagramFeed: 'https://feeds.behold.so/5KepgzQIECtAALMltxaK',
 };
 
 export const documents = [
