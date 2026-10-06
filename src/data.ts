@@ -9,7 +9,7 @@ export const club = {
 };
 
 export const documents = [
-  { label: 'Constitution', href: 'https://drive.google.com/file/d/10SQj4OcUhDW2CInxf8KeO__BumAN0IiN/view?usp=sharing' },
+  { label: 'Constitution', href: 'https://drive.google.com/file/d/1uPKgdUqGEGW1LogIJfakLPsnRqyOoMxv/view?usp=sharing' },
   { label: 'Code of Conduct', href: 'https://docs.google.com/document/d/1OYPpQA5snKfEvhyE-Mx7YVahZtwt8gbQ/edit?usp=sharing&ouid=114909020403936945939&rtpof=true&sd=true' },
   { label: 'Payment Policy', href: 'https://docs.google.com/document/d/1wbTFdiutQtIMlZPYGVbkhPbYCXFdkA-jliou547xljs/edit?usp=sharing' },
 ];
