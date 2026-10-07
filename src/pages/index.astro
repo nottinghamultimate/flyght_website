@@ -1,0 +1,77 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TrainingSession from '../components/TrainingSession.astro';
+import { club } from '../data';
+import team1 from '../assets/images/team_1.jpg';
+import team2 from '../assets/images/team_2.jpg';
+
+const sizes = '(max-width: 768px) 100vw, 440px';
+---
+
+<BaseLayout
+  title="Ultimate Frisbee in Nottingham | Flyght Ultimate"
+  description="Flyght Ultimate is a friendly and competitive ultimate frisbee club in Nottingham, welcoming players of all levels. Free outdoor training on Wednesdays, indoor on Tuesdays."
+>
+  <section class="page container">
+    <h1>Ultimate Frisbee in Nottingham</h1>
+    <div class="intro-with-image">
+      <div class="intro-copy">
+        <p>Flyght Ultimate is a friendly and competitive ultimate frisbee club based in Nottingham, UK. We welcome players of all experience levels, from complete beginners trying the sport for the first time to experienced players looking for competitive opportunities.</p>
+        <p>Whether you're looking to keep active, meet new people, or compete at a high level, we'd love to have you join us.</p>
+        <p>The easiest way to get involved is to join our <a href={club.discord} target="_blank" rel="noopener"><strong>Discord</strong></a> community, where you'll find the latest training information, club news, events, and opportunities to play. Alternatively, send us a message at <a href={`mailto:${club.email}`}>{club.email}</a>.</p>
+      </div>
+      <Image
+        src={team1}
+        alt="The Flyght Ultimate squad lined up for a group photo on a grass pitch"
+        width={880}
+        widths={[440, 880]}
+        sizes={sizes}
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+
+    <h2 id="where-do-we-train">Where do we train?</h2>
+
+    <TrainingSession
+      title="Outdoor Season (April – September)"
+      venue="The Meadows Embankment"
+      time="Wednesdays, 6:00pm – 8:00pm"
+      mapSrc="https://www.google.com/maps?q=52.93459210826901,-1.1454477594108765&z=15&output=embed"
+      mapTitle="Map of The Meadows Embankment, Nottingham"
+    >
+      <p>Outdoor training is free to attend and open to everyone.</p>
+    </TrainingSession>
+
+    <TrainingSession
+      title="Indoor Season (September – March)"
+      venue="Nottingham Wildcats Arena"
+      time="Tuesdays, 8:00pm – 10:00pm"
+      mapSrc="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2403.5272074558075!2d-1.114019622215343!3d52.955617272178564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4879c158f506eea3%3A0x2ba83b466ff933a5!2sNottingham%20Wildcats%20Arena!5e0!3m2!1sen!2sca!4v1781475760184!5m2!1sen!2sca"
+      mapTitle="Map of Nottingham Wildcats Arena"
+    >
+      <p>Indoor sessions have a small attendance fee (&pound;5 students, &pound;8 adults) but your first session is free. Full details and payment information are available on <a href={club.discord} target="_blank" rel="noopener"><strong>Discord</strong></a>.</p>
+    </TrainingSession>
+
+    <p>Any questions? <a href="/contact/">Get in touch</a> and we'll be happy to help. New to the sport? Read <a href="/what-is-ultimate/">what ultimate frisbee is</a>.</p>
+
+    <h2>Why Flyght?</h2>
+
+    <div class="intro-with-image">
+      <div class="intro-copy">
+        <p>Founded in 2001, Flyght has spent more than two decades building an inclusive and welcoming ultimate frisbee community in Nottingham.</p>
+        <p>We regularly enter local, regional, and national competitions across Open, Women's, and Mixed divisions, providing opportunities for players of all ambitions and experience levels. Some of our members have gone on to compete at the highest levels of the sport, including international competition.</p>
+        <p>Beyond training and tournaments, we organise regular socials, friendly fixtures, and collaborative events with other clubs across the region.</p>
+        <p>Whether you're aiming to compete, stay active, learn a new sport, or simply meet great people, there's a place for you at Flyght.</p>
+      </div>
+      <Image
+        src={team2}
+        alt="Flyght players in a team huddle between points at a tournament"
+        width={880}
+        widths={[440, 880]}
+        sizes={sizes}
+      />
+    </div>
+  </section>
+</BaseLayout>

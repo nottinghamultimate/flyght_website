@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import InstagramFeed from '../components/InstagramFeed.astro';
+import { club } from '../data';
+---
+
+<BaseLayout
+  title="News | Flyght Ultimate Nottingham"
+  description="Latest news and photos from Flyght Ultimate, the Nottingham ultimate frisbee club, from our Instagram feed."
+>
+  <section class="page container">
+    <h1>News</h1>
+    <p>The latest from the club. Follow us on <a href={club.instagram} target="_blank" rel="noopener">Instagram</a> for more.</p>
+    <InstagramFeed feedUrl={club.instagramFeed} />
+  </section>
+</BaseLayout>
